@@ -53,4 +53,8 @@ public class ExamenService {
     public List<Examen> obtenerExamenesPorProfesor(String profesorIdentificacion) {
         return examenRepository.obtenerExamenesPorProfesor(profesorIdentificacion);
     }
+
+    public List<Examen> obtenerExamenesEstudiante(String correo) {
+        return examenRepository.obtenerExamenesEstudiante(correo);
+    }
 }

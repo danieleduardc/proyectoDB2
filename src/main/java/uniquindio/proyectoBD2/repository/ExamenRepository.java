@@ -31,6 +31,7 @@ public class ExamenRepository {
     private SimpleJdbcCall obtenerDetalleExamenCall;
     private static SimpleJdbcCall obtenerEstadisticasExamenCall;
     private SimpleJdbcCall obtenerExamenesPorProfesorCall;
+    private SimpleJdbcCall obtenerExamenesEstudianteCall;
 
     @Autowired
     public ExamenRepository(JdbcTemplate jdbcTemplate, DataSource dataSource) {
@@ -97,6 +98,13 @@ public class ExamenRepository {
                 .declareParameters(
                         new SqlParameter("p_profesorIdentificacion", Types.VARCHAR),
                         new SqlOutParameter("v_cursor", OracleTypes.CURSOR, new ExamenRowMapper()));
+
+
+        this.obtenerExamenesEstudianteCall = new SimpleJdbcCall(dataSource)
+                .withFunctionName("obtener_examenes_estudiante")
+                .declareParameters(
+                        new SqlParameter("p_estudianteCorreo", Types.VARCHAR),
+                        new SqlOutParameter("v_cursor", OracleTypes.CURSOR, new ExamenPRowMapper()));
     }
 
     public void crearExamen(Examen examen) {
@@ -135,6 +143,24 @@ public class ExamenRepository {
         Map<String, Object> result = obtenerExamenesPorProfesorCall.execute(profesorIdentificacion);
         return (List<Examen>) result.get("v_cursor");
     }
+
+    public List<Examen> obtenerExamenesEstudiante(String correo) {
+        Map<String, Object> result = obtenerExamenesEstudianteCall.execute(correo);
+        return (List<Examen>) result.get("v_cursor");
+    }
+
+    private static final class ExamenPRowMapper implements RowMapper<Examen> {
+        @Override
+        public Examen mapRow(ResultSet rs, int rowNum) throws SQLException {
+            Examen examen = new Examen();
+            examen.setId(rs.getLong("id"));
+            examen.setNombre(rs.getString("nombre"));
+            examen.setDescripcion(rs.getString("descripcion"));
+            examen.setCantidadPreguntas(rs.getInt("cantidadpreguntas"));
+            return examen;
+        }
+    }
+
 
     private static final class ExamenRowMapper implements RowMapper<Examen> {
         @Override

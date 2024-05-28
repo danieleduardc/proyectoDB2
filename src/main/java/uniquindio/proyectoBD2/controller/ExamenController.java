@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/examen")
+@CrossOrigin(origins = "http://localhost:5500")
 public class ExamenController {
 
     @Autowired
@@ -67,6 +68,12 @@ public class ExamenController {
     @GetMapping("/profesor/{identificacion}")
     public ResponseEntity<List<Examen>> obtenerExamenesPorProfesor(@PathVariable String identificacion) {
         List<Examen> examenes = examenService.obtenerExamenesPorProfesor(identificacion);
+        return ResponseEntity.ok(examenes);
+    }
+
+    @GetMapping("/estudiante/{correo}")
+    public ResponseEntity<List<Examen>> obtenerExamenesEstudiante(@PathVariable String correo) {
+        List<Examen> examenes = examenService.obtenerExamenesEstudiante(correo);
         return ResponseEntity.ok(examenes);
     }
 }

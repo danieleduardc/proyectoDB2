@@ -15,12 +15,12 @@ public class UsuarioController {
     private UsuarioService usuarioService;
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody Usuario usuario) {
+    public ResponseEntity<?> login(@RequestBody Usuario usuario) {
         boolean isValid = usuarioService.validarUsuario(usuario.getCorreo(), usuario.getContrasena());
         if (isValid) {
-            return ResponseEntity.ok("Login exitoso");
+            return ResponseEntity.ok().build(); // Solo devolvemos 200 OK sin cuerpo
         } else {
-            return ResponseEntity.status(401).body("Credenciales incorrectas");
+            return ResponseEntity.status(400).body("Credenciales incorrectas"); // 400 Bad Request con mensaje
         }
     }
 }

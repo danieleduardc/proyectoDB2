@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exámenes</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="profile">
+                <img src="https://cdn-icons-png.flaticon.com/512/2919/2919600.png" alt="Estudiante" class="profile-img">
+                <h3>Estudiante</h3>
+            </div>
+            <nav>
+                <ul>
+                    <li><button id="mis-examenes">Mis Exámenes</button></li>
+                    <li><button id="mis-estadisticas">Mis Estadísticas</button></li>
+                </ul>
+            </nav>
+            <button id="cerrar-sesion">Cerrar Sesión</button>
+        </div>
+        <div class="content">
+            <h1>Exámenes</h1>
+            <table id="examenes-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre Examen</th>
+                        <th>Descripción</th>
+                        <th>Cantidad de Preguntas</th>
+                    </tr>
+                </thead>
+                <tbody id="examenes-tbody">
+                    <!-- Las filas se llenarán con JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            //const usuarioCorreo = window.correo;
+            const usuarioCorreo = 'carlos.lopez@example.com';
+
+            fetch(`http://localhost:8081/api/examen/estudiante/${usuarioCorreo}`)
+                .then(response => response.json())
+                .then(data => {
+                    const tbody = document.getElementById('examenes-tbody');
+                    tbody.innerHTML = ''; // Limpiar contenido previo
+
+                    data.forEach(examen => {
+                        const row = document.createElement('tr');
+
+                        // Filtrar solo los campos que no son null
+                        Object.entries(examen).forEach(([key, value]) => {
+                            if (value !== null) {
+                                const cell = document.createElement('td');
+                                cell.textContent = value;
+                                row.appendChild(cell);
+                            }
+                        });
+
+                        tbody.appendChild(row);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error al obtener los exámenes:', error);
+                    // Puedes mostrar un mensaje de error al usuario aquí
+                });
+        });
+    </script>
+
+</body>
+</html>
