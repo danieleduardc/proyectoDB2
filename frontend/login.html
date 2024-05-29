@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f4f4f4;
+        }
+
+        .login-container {
+            background-color: #6200EE; /* Purple background for container */
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 350px; /* Adjusted width */
+        }
+
+        .login-icon {
+            display: flex; /* Center the icon */
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .login-icon img {
+            width: 50px;  /* Adjusted icon size */
+            height: 50px;
+        }
+
+        .login-form input[type="text"],
+        .login-form input[type="password"] {
+            width: calc(100% - 24px); /* Full width with padding adjustment */
+            padding: 12px;
+            margin: 8px 0; /* Adjusted margin */
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .login-remember {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start; /* Align checkbox and label to the left */
+            margin: 10px 0;
+        }
+
+        .login-remember input[type="checkbox"] {
+            margin-right: 5px; /* Add space between checkbox and label */
+        }
+
+        .login-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px; /* Add top margin */
+        }
+
+        .login-actions button {
+            background-color: #4CAF50; /* Green button color */
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 48%; /* Equal width for buttons */
+            transition: background-color 0.3s;
+        }
+
+        .login-actions button:hover {
+            background-color: #45a049; /* Darker green on hover */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-container">
+        <div class="login-icon">
+            <img src="https://cdn-icons-png.flaticon.com/512/2919/2919600.png" alt="User Icon">
+        </div>
+        <div class="login-form">
+            <input type="text" id="correo" placeholder="Correo">
+            <input type="password" id="contrasena" placeholder="Contraseña">
+            <div class="login-remember">
+                <input type="checkbox" id="recordar">
+                <label for="recordar">Recordar</label>
+            </div>
+            <div class="login-actions">
+                <button id="login-btn">Iniciar Sesión</button>
+                <button id="register-btn" onclick="window.location.href='registro.html'">Registrarse</button>
+            </div>
+        </div>
+    </div>
+    <script src="scripts.js"></script> </body>
+</html>

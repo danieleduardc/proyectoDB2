@@ -23,5 +23,11 @@ public class UsuarioController {
             return ResponseEntity.status(400).body("Credenciales incorrectas"); // 400 Bad Request con mensaje
         }
     }
+
+    @PostMapping("/usuarios")
+    public ResponseEntity<Void> crearUsuario(@RequestBody Usuario usuario) {
+        usuarioService.crearUsuario(usuario.getId(), usuario.getCorreo(), usuario.getContrasena());
+        return ResponseEntity.ok().build();
+    }
 }
 
